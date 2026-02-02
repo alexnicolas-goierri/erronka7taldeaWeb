@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </header>
 
 <main>
-    <h2>Login Erabiltzaileak</h2>
+   
 
     <?php if($mensaje) echo "<div class='mensaje'>$mensaje</div>"; ?>
 

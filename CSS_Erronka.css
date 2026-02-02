@@ -1,161 +1,102 @@
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ========== Reset y base ========== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 100%; overflow-x: hidden; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-image: image-set("https://static.vecteezy.com/system/resources/previews/003/127/955/original/abstract-white-and-grey-background-with-dynamic-waves-shape-free-vector.jpg");
-  background-size: cover;
-  background-position: center;
+  background: #fff;                 /* quita el rojo cuando termines la prueba */
   color: #1d1d1f;
   line-height: 1.58;
   font-size: 15px;
-  padding-top: 120px;
-  padding-bottom: 70px; 
+  padding-top: 120px;                /* espacio por header fijo */
+  padding-bottom: 70px;
+  background-image: image-set("https://static.vecteezy.com/system/resources/previews/003/127/955/original/abstract-white-and-grey-background-with-dynamic-waves-shape-free-vector.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
-
-
+/* ========== Header ========== */
 header {
+  position: fixed;
+  top: 0; left: 0;
   width: 100%;
-  background-color: rgba(245, 245, 247, 0.8);
+  background-color: rgba(245,245,247,0.8);
   backdrop-filter: blur(10px);
-  color: black;
+  color: #000;
   text-align: center;
   padding: 3px;
-  position: fixed;
-  top: 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #000;
   z-index: 9999;
+  overflow: hidden;                  /* clave: evita desbordes horizontales */
 }
 
 .nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1px;
+  gap: 8px;
   width: 100%;
 }
 
-.nav > a {
-  width: 80%;
-}
+nav a { color: #2b2828; text-decoration: none; font-weight: 500; }
+nav a:hover { color: #06c; }
 
-nav a {
-  color: rgb(43, 40, 40);
-  text-decoration: none;
-  font-weight: 500;
-}
+#LOGO img { max-width: 100%; height: auto; display: block; }
 
-nav a:hover {
-  color: #06c;
-}
-
-#LOGO img {
-  width: 80%;
-  height: 80%;
-}
-
+/* Buscador del header – no debe desbordar */
 .bilatzailea {
   all: unset;
-  padding-top: 1%;
-  width: 150%;
-  margin-right: 3%;
-  margin-left: 3%;
+  width: 100%;
+  max-width: 480px;                  /* antes 150% -> causaba overflow */
+  margin-inline: 3%;
+  padding-top: 4px;
+  box-sizing: border-box;
 }
 
 .Ingles {
   border-radius: 20%;
   object-fit: cover;
-  width: 3%;
-  height: 3%;
-  margin-right: 3%;
-  margin-left: 3%;
+  width: 24px; height: 24px;         /* tamaño fijo razonable */
 }
 
-/* SASKIA KONTADOREA */
-#saskia {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 4dvh;
-  height: 4dvh;
+/* ========== Main y bloque centrado ========== */
+main {
   display: flex;
-  justify-content: center;
+  justify-content: center;           /* centra el contenido principal */
+  padding: 20px;
+}
+
+.div1 {
+  width: min(90vw, 900px);           /* ancho lógico y responsive */
+  margin: 0 auto;                    /* centrado */
+  background: #fff;
+  border-radius: 14px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  color: white;
-  font-weight: bold;
+  text-align: center;                /* centra el texto */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform .2s ease;
+}
+.div1:hover { transform: translateY(-5px); }
+
+.div1 h2, .div1 p {
+  max-width: 800px;                  /* ancho de lectura cómodo */
+  margin: 10px auto;
 }
 
-.zenbaki-saskia {
-  position: absolute;
-  z-index: 50;
-  left: 97%;
-  bottom: 50%;
-  border-radius: 45%;
-  background-color: rgb(239, 74, 74);
-  padding: 1%;
-}
-
-
-.slider {
-  max-width: 12550px;
-  margin: 30px auto;
-  position: relative;
-  z-index: 1;
-}
-
-.slider img {
-  width: 96%;
-  object-fit: cover;
- 
-}
-
-/* BILATZAILEA */
-form {
-  background-color: #f5f5f7;
-  padding: 28px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  width: 498px;
-  margin: 0 auto 30px;
-  text-align: left;
-}
-
-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-input,
-select {
+/* Iframe de Google Maps responsive y centrado */
+.div1 iframe {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #d2d2d7;
-  border-radius: 6px;
-  margin-bottom: 13px;
-  font-size: 14px;
+  max-width: 100%;                   /* evita quedarse en 600px */
+  height: 450px;                     /* ajustable */
+  display: block;
+  margin: 10px auto;
+  border: 0;
 }
 
-button {
-  background-color: #0071e3;
-  color: #fff;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0077ed;
-}
-
-
+/* ========== Figuras / grid (si los usas en otras secciones) ========== */
 figure {
   max-width: 1200px;
   margin: auto;
@@ -166,24 +107,7 @@ figure {
   background-color: #f5f5f7;
 }
 
-/* PRODUKTUAREN DIVA  */
-.div1 {
-  background: white;
-  border-radius: 14px;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  transition: transform 0.2s ease;
-}
-
-.div1:hover {
-  transform: translateY(-5px);
-}
-
-/* PRODUKTUEN IRUDIA */
+/* ========== Productos (por si los usas) ========== */
 .produktuak {
   width: 100%;
   height: 180px;
@@ -191,36 +115,23 @@ figure {
   margin-bottom: 10px;
   border-radius: 10px;
   background-color: #fff;
+  display: block;
+  transition: transform .3s ease;
 }
-
-.produktuak:hover {
-  transform: scale(1.05);
-  transition: 0.3s ease;
-}
-
+.produktuak:hover { transform: scale(1.05); }
 
 .produktutextua {
   text-align: center;
   margin-top: 8px;
   font-size: 14px;
   color: #000;
-  min-height: 45px; 
+  min-height: 45px;
 }
 
+.button { display: flex; justify-content: center; gap: 8px; margin-top: auto; width: 100%; }
+.button button { width: 100%; }
 
-.button {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: auto;
-  width: 100%;
-}
-
-.button button {
-  width: 100%;
-}
-
-/* FOOTER  */
+/* ========== Footer ========== */
 footer {
   background-color: #f5f5f7;
   color: #6e6e73;
@@ -229,7 +140,6 @@ footer {
   font-size: 12px;
   border-top: 1px solid rgba(0,0,0,0.1);
 }
-
 .sarrera-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(98px, 1fr));
@@ -237,64 +147,56 @@ footer {
   align-items: center;
   gap: 20px;
 }
-
 .logo-empresa {
   width: 100%;
   max-width: 98px;
-  height: auto;
   max-height: 98px;
   object-fit: contain;
-  transition: transform 0.3s ease;
+  display: block;
+  transition: transform .3s ease;
 }
+.logo-empresa:hover { transform: scale(1.05); }
 
-.logo-empresa:hover {
-  transform: scale(1.05);
-}
-
-/* SASKIA (CARRITO) */
+/* ========== Tabla Carrito (si aplica) ========== */
 table {
   width: 90%;
   margin: 40px auto;
   border-collapse: collapse;
-  background: white;
+  background: #fff;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
+th { background-color: #f5f5f7; font-weight: 600; }
+th, td { padding: 14px; text-align: center; }
+.img-saskia { width: 70px; height: 70px; object-fit: contain; }
+tfoot td { font-weight: bold; font-size: 16px; }
 
-th {
-  background-color: #f5f5f7;
-  font-weight: 600;
-}
-
-th, td {
-  padding: 14px;
-  text-align: center;
-}
-
-.img-saskia {
-  width: 70px;
-  height: 70px;
-  object-fit: contain;
-}
-
-tfoot td {
-  font-weight: bold;
-  font-size: 16px;
-}
-
+/* ========== Botones ========== */
 button {
   background-color: #0071e3;
-  color: white;
+  color: #fff;
   border: none;
-  padding: 6px 12px;
+  padding: 10px 16px;
   border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background .2s ease;
 }
+button:hover { background-color: #0077ed; }
 
-button:hover {
-  background-color: #0077ed;
+/* ========== Extras del carrito (si los usas) ========== */
+#saskia {
+  position: absolute;
+  top: 0; right: 0;
+  width: 4dvh; height: 4dvh;
+  display: flex; justify-content: center; align-items: center;
+  color: #fff; font-weight: bold;
 }
-
-
+.zenbaki-saskia {
+  position: absolute; z-index: 50;
+  left: 97%; bottom: 50%;
+  border-radius: 45%;
+  background-color: rgb(239, 74, 74);
+  padding: 1%;
+}
