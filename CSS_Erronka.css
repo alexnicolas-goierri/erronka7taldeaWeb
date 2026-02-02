@@ -1,6 +1,4 @@
-/* =========================
-   RESET Y BASE
-========================= */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -15,12 +13,12 @@ body {
   color: #1d1d1f;
   line-height: 1.58;
   font-size: 15px;
-  padding-top: 120px; /* espacio para header fijo */
+  padding-top: 120px;
+  padding-bottom: 70px; 
 }
 
-/* =========================
-   HEADER (CSS ORIGINAL)
-========================= */
+
+
 header {
   width: 100%;
   background-color: rgba(245, 245, 247, 0.8);
@@ -78,7 +76,7 @@ nav a:hover {
   margin-left: 3%;
 }
 
-/* contador carrito */
+/* SASKIA KONTADOREA */
 #saskia {
   position: absolute;
   top: 0;
@@ -102,9 +100,7 @@ nav a:hover {
   padding: 1%;
 }
 
-/* =========================
-   SLIDER
-========================= */
+
 .slider {
   max-width: 12550px;
   margin: 30px auto;
@@ -118,9 +114,7 @@ nav a:hover {
  
 }
 
-/* =========================
-   FILTRO / BUSCADOR
-========================= */
+/* BILATZAILEA */
 form {
   background-color: #f5f5f7;
   padding: 28px;
@@ -161,9 +155,7 @@ button:hover {
   background-color: #0077ed;
 }
 
-/* =========================
-   CATÁLOGO (GRID NUEVO)
-========================= */
+
 figure {
   max-width: 1200px;
   margin: auto;
@@ -174,9 +166,7 @@ figure {
   background-color: #f5f5f7;
 }
 
-/* =========================
-   TARJETA PRODUCTO
-========================= */
+/* PRODUKTUAREN DIVA  */
 .div1 {
   background: white;
   border-radius: 14px;
@@ -193,9 +183,7 @@ figure {
   transform: translateY(-5px);
 }
 
-/* =========================
-   IMAGEN PRODUCTO
-========================= */
+/* PRODUKTUEN IRUDIA */
 .produktuak {
   width: 100%;
   height: 180px;
@@ -210,20 +198,16 @@ figure {
   transition: 0.3s ease;
 }
 
-/* =========================
-   TEXTO PRODUCTO
-========================= */
-figcaption {
+
+.produktutextua {
   text-align: center;
   margin-top: 8px;
   font-size: 14px;
   color: #000;
-  min-height: 45px; /* evita descuadre al buscar */
+  min-height: 45px; 
 }
 
-/* =========================
-   BOTÓN
-========================= */
+
 .button {
   display: flex;
   justify-content: center;
@@ -236,9 +220,7 @@ figcaption {
   width: 100%;
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER  */
 footer {
   background-color: #f5f5f7;
   color: #6e6e73;
@@ -268,3 +250,51 @@ footer {
 .logo-empresa:hover {
   transform: scale(1.05);
 }
+
+/* SASKIA (CARRITO) */
+table {
+  width: 90%;
+  margin: 40px auto;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+th {
+  background-color: #f5f5f7;
+  font-weight: 600;
+}
+
+th, td {
+  padding: 14px;
+  text-align: center;
+}
+
+.img-saskia {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+}
+
+tfoot td {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+button {
+  background-color: #0071e3;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background-color: #0077ed;
+}
+
+

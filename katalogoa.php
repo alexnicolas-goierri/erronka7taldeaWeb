@@ -2,9 +2,7 @@
 session_start();
 include_once "konexioa.php";
 
-/* =======================
-   AÑADIR AL CARRITO
-======================= */
+/* SASKIAN JARRI */
 if (isset($_POST['produktua_id'])) {
     $id = (int)$_POST['produktua_id'];
 
@@ -12,12 +10,14 @@ if (isset($_POST['produktua_id'])) {
         $_SESSION['saskia'] = [];
     }
 
-    $_SESSION['saskia'][] = $id;
+    if (isset($_SESSION['saskia'][$id])) {
+        $_SESSION['saskia'][$id]++;
+    } else {
+        $_SESSION['saskia'][$id] = 1;
+    }
 }
 
-/* =======================
-   FILTROS
-======================= */
+/* MOTA FILTROAK */
 $mota = $_GET['mota'] ?? '';
 $keywords = '';
 
@@ -25,9 +25,7 @@ if (isset($_GET['search'])) {
     $keywords = trim($_GET['keywords'] ?? '');
 }
 
-/* =======================
-   SQL
-======================= */
+/* SQL KONTSULTA */
 $sql = "SELECT id, izena, prezioa, argazkia, mota FROM produktuak WHERE 1=1";
 $params = [];
 $types = "";
@@ -78,7 +76,6 @@ if (!empty($params)) {
 
 <script>
 $(document).ready(function(){
-
     $(".slider").slick({
         centerMode: true,
         centerPadding: "60px",
@@ -109,7 +106,7 @@ $(document).ready(function(){
     <img src="img/slider-argazkiak/4.webp">
 </div>
 
-<!-- FILTROA -->
+<!-- FILTRO -->
 <form method="GET">
     <label>Mota</label>
     <select name="mota">
@@ -139,7 +136,7 @@ if ($resultado && $resultado->num_rows > 0) {
 
         echo '<div class="div1">';
         echo   '<img class="produktuak" src="'.$img.'" alt="'.$izena.'">';
-        echo   '<figcaption>'.$izena.' - '.$prezioa.' €</figcaption>';
+        echo   '<produktutextua>'.$izena.' - '.$prezioa.' €</produktutextua>';
         echo   '<div class="button">';
         echo     '<form method="POST">';
         echo       '<input type="hidden" name="produktua_id" value="'.$id.'">';
