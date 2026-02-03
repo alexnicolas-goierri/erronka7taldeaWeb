@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
 --
 -- Host: localhost    Database: erronka2
 -- ------------------------------------------------------
--- Server version	9.3.0
+-- Server version	9.4.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -161,13 +161,13 @@ INSERT INTO `hornitzaile` VALUES (1,'Osagaiak Euskadi S.L.','944123456','kontakt
 UNLOCK TABLES;
 
 --
--- Table structure for table `konponketak`
+-- Table structure for table `konponketa`
 --
 
-DROP TABLE IF EXISTS `konponketak`;
+DROP TABLE IF EXISTS `konponketa`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `konponketak` (
+CREATE TABLE `konponketa` (
   `id` int NOT NULL AUTO_INCREMENT,
   `produktu_id` int NOT NULL,
   `langile_id` int NOT NULL,
@@ -178,19 +178,19 @@ CREATE TABLE `konponketak` (
   PRIMARY KEY (`id`),
   KEY `produktu_id` (`produktu_id`),
   KEY `langile_id` (`langile_id`),
-  CONSTRAINT `konponketak_ibfk_1` FOREIGN KEY (`produktu_id`) REFERENCES `produktu` (`id`),
-  CONSTRAINT `konponketak_ibfk_2` FOREIGN KEY (`langile_id`) REFERENCES `langile` (`id`)
+  CONSTRAINT `konponketa_ibfk_1` FOREIGN KEY (`produktu_id`) REFERENCES `produktu` (`id`),
+  CONSTRAINT `konponketa_ibfk_2` FOREIGN KEY (`langile_id`) REFERENCES `langile` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `konponketak`
+-- Dumping data for table `konponketa`
 --
 
-LOCK TABLES `konponketak` WRITE;
-/*!40000 ALTER TABLE `konponketak` DISABLE KEYS */;
-INSERT INTO `konponketak` VALUES (1,1,2,'Pantaila hautsita','Pantaila aldatu',1.50,100.00),(2,2,3,'Bateria','Bateria berria',1.00,50.00),(3,3,7,'Ez du pizten','Plaka basea konpondu',3.00,120.00),(4,4,8,'Kristala apurtuta','Atzeko kristala aldatu',2.00,80.00),(5,5,11,'Botoia','Home botoia aldatu',1.00,30.00),(6,6,12,'Konektorea','Karga portua soldatu',1.50,20.00),(7,7,15,'Pantaila beltza','Kablea ordezkatu',0.50,10.00),(8,8,16,'Zarata','Garbitu eta koipeztatu',1.00,5.00),(9,9,20,'Teklatua','Tekla batzuk falta',1.00,45.00),(10,10,21,'Software','Fabrika berrezarpena',1.00,0.00),(11,11,24,'Karga','Ez du kargatzen',2.00,40.00),(12,12,25,'Pantaila','Pixela hilda',1.00,150.00),(13,13,29,'Tinta','Inprimagailu trabatuta',1.50,10.00),(14,14,2,'Wi-Fi','Antena aldatu',1.00,25.00),(15,15,3,'Bateria','Bateria puztuta',0.50,60.00),(16,16,7,'HDMI','Portua apurtuta',2.00,30.00),(17,17,8,'Kamara','Lentea zikina',1.00,20.00),(18,18,11,'Papera','Trabatuta',0.50,0.00),(19,19,12,'Pantaila','Ukipena ez dabil',1.50,90.00),(20,20,15,'Disko gogorra','SSD aldatu',1.00,70.00),(21,21,16,'Bozgorailua','Ez da entzuten',1.00,35.00),(22,22,20,'Kablea','Elikatze iturria',0.50,50.00),(23,23,21,'Wifi','Konexioa galtzen du',1.50,0.00),(24,24,24,'Teklatua','Likidoa isurita',2.50,80.00),(25,25,25,'Mikrofonoa','Ez du grabatzen',1.00,25.00),(26,26,29,'Karga','USB-C portua',2.00,30.00),(27,27,2,'Argia','LED fundituta',0.50,10.00),(28,28,3,'Papera','Rodilloak aldatu',1.00,20.00),(29,29,7,'Pantaila','Flex kablea',2.00,40.00),(30,30,8,'Bateria','Bateria zaharra',0.50,30.00);
-/*!40000 ALTER TABLE `konponketak` ENABLE KEYS */;
+LOCK TABLES `konponketa` WRITE;
+/*!40000 ALTER TABLE `konponketa` DISABLE KEYS */;
+INSERT INTO `konponketa` VALUES (1,1,2,'Pantaila hautsita','Pantaila aldatu',1.50,100.00),(2,2,3,'Bateria','Bateria berria',1.00,50.00),(3,3,7,'Ez du pizten','Plaka basea konpondu',3.00,120.00),(4,4,8,'Kristala apurtuta','Atzeko kristala aldatu',2.00,80.00),(5,5,11,'Botoia','Home botoia aldatu',1.00,30.00),(6,6,12,'Konektorea','Karga portua soldatu',1.50,20.00),(7,7,15,'Pantaila beltza','Kablea ordezkatu',0.50,10.00),(8,8,16,'Zarata','Garbitu eta koipeztatu',1.00,5.00),(9,9,20,'Teklatua','Tekla batzuk falta',1.00,45.00),(10,10,21,'Software','Fabrika berrezarpena',1.00,0.00),(11,11,24,'Karga','Ez du kargatzen',2.00,40.00),(12,12,25,'Pantaila','Pixela hilda',1.00,150.00),(13,13,29,'Tinta','Inprimagailu trabatuta',1.50,10.00),(14,14,2,'Wi-Fi','Antena aldatu',1.00,25.00),(15,15,3,'Bateria','Bateria puztuta',0.50,60.00),(16,16,7,'HDMI','Portua apurtuta',2.00,30.00),(17,17,8,'Kamara','Lentea zikina',1.00,20.00),(18,18,11,'Papera','Trabatuta',0.50,0.00),(19,19,12,'Pantaila','Ukipena ez dabil',1.50,90.00),(20,20,15,'Disko gogorra','SSD aldatu',1.00,70.00),(21,21,16,'Bozgorailua','Ez da entzuten',1.00,35.00),(22,22,20,'Kablea','Elikatze iturria',0.50,50.00),(23,23,21,'Wifi','Konexioa galtzen du',1.50,0.00),(24,24,24,'Teklatua','Likidoa isurita',2.50,80.00),(25,25,25,'Mikrofonoa','Ez du grabatzen',1.00,25.00),(26,26,29,'Karga','USB-C portua',2.00,30.00),(27,27,2,'Argia','LED fundituta',0.50,10.00),(28,28,3,'Papera','Rodilloak aldatu',1.00,20.00),(29,29,7,'Pantaila','Flex kablea',2.00,40.00),(30,30,8,'Bateria','Bateria zaharra',0.50,30.00);
+/*!40000 ALTER TABLE `konponketa` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -226,13 +226,13 @@ INSERT INTO `langile` VALUES (1,1,3500.00,'Amaia','Agirre','78945612K','60011100
 UNLOCK TABLES;
 
 --
--- Table structure for table `produktuak`
+-- Table structure for table `produktu`
 --
 
-DROP TABLE IF EXISTS `produktuak`;
+DROP TABLE IF EXISTS `produktu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `produktuak` (
+CREATE TABLE `produktu` (
   `id` int NOT NULL AUTO_INCREMENT,
   `izena` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `marka` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -241,21 +241,20 @@ CREATE TABLE `produktuak` (
   `egoera` enum('Berria','Birgaitua') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `mota` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `hornitzaile_id` int DEFAULT NULL,
-  `argazkia` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `hornitzaile_id` (`hornitzaile_id`),
-  CONSTRAINT `produktuak_ibfk_1` FOREIGN KEY (`hornitzaile_id`) REFERENCES `hornitzaile` (`id`)
+  CONSTRAINT `produktu_ibfk_1` FOREIGN KEY (`hornitzaile_id`) REFERENCES `hornitzaile` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `produktuak`
+-- Dumping data for table `produktu`
 --
 
-LOCK TABLES `produktuak` WRITE;
-/*!40000 ALTER TABLE `produktuak` DISABLE KEYS */;
-INSERT INTO `produktuak` VALUES (1,'EliteBook 840','HP',450.00,15,'Birgaitua','Ordenagailua',NULL,'img produktuak/HP EliteBook 840.jpg'),(2,'Latitude 7390','Dell',400.00,12,'Birgaitua','Ordenagailua',6,'img produktuak/Dell Latitude 7390.jpg'),(3,'Galaxy S10','Samsung',250.00,20,'Birgaitua','Mugikorra',16,'img produktuak/Samsung Galaxy S10.webp'),(4,'iPhone 11','Apple',380.00,8,'Birgaitua','Mugikorra',2,'img produktuak/Iphone 11.jpg'),(5,'iPad Air','Apple',420.00,10,'Berria','Tableta',24,'img produktuak/iPad Air.webp'),(6,'LG 24MP59','LG',90.00,25,'Berria','Pantaila',NULL,'img produktuak/LG 24MP59.webp'),(7,'Curved 27','Samsung',150.00,7,'Berria','Pantaila',NULL,'img produktuak/Samsung Curved 27.webp'),(8,'LaserJet 1100','HP',75.00,5,'Birgaitua','Inprimagailua',NULL,'img produktuak/HP LaserJet 1100.webp'),(9,'ThinkPad X1','Lenovo',480.00,6,'Berria','Ordenagailua',27,'img produktuak/Lenovo ThinkPad X1.webp'),(10,'Mi 10','Xiaomi',300.00,14,'Berria','Mugikorra',26,'img produktuak/Xiaomi Mi 10.jpg'),(11,'Tab S6','Samsung',350.00,9,'Berria','Tableta',8,'img produktuak/Samsung Tab S6.jpg'),(12,'UltraSharp','Dell',200.00,11,'Berria','Pantaila',NULL,'img produktuak/Dell UltraSharp.jpg'),(13,'Pixma','Canon',85.00,30,'Berria','Inprimagailua',NULL,'img produktuak/Canon Pixma.jpg'),(14,'OnePlus Nord','OnePlus',290.00,12,'Berria','Mugikorra',17,'img produktuak/OnePlus Nord.webp'),(15,'ZenBook','Asus',500.00,4,'Berria','Ordenagailua',NULL,'img produktuak/Asus ZenBook.jpg'),(16,'GW2480','BenQ',110.00,8,'Berria','Pantaila',1,'img produktuak/BenQ GW2480.webp'),(17,'Pixel 5','Google',320.00,6,'Berria','Mugikorra',NULL,'img produktuak/Google Pixel 5.jpg'),(18,'EcoTank','Epson',100.00,10,'Berria','Inprimagailua',5,'img produktuak/Epson EcoTank.png'),(19,'Tab P11','Lenovo',250.00,15,'Berria','Tableta',NULL,'img produktuak/Lenovo Tab P11.jpg'),(20,'ProBook 450','HP',430.00,7,'Birgaitua','Ordenagailua',9,'img produktuak/HP ProBook 450.jpg'),(21,'iPhone XR','Apple',350.00,9,'Birgaitua','Mugikorra',5,'img produktuak/iPhone XR.jpg'),(22,'UltraFine','LG',210.00,3,'Berria','Pantaila',NULL,'img produktuak/LG UltraFine.avif'),(23,'HL-1210W','Brother',70.00,18,'Berria','Inprimagailua',NULL,'img produktuak/Brother HL-1210W.png'),(24,'Aspire 5','Acer',380.00,6,'Berria','Ordenagailua',NULL,'img produktuak/Acer Aspire 5.png'),(25,'Galaxy A52','Samsung',240.00,20,'Berria','Mugikorra',NULL,'img produktuak/Samsung Galaxy A52.webp'),(26,'MediaPad T5','Huawei',200.00,12,'Birgaitua','Tableta',6,'img produktuak/Huawei MediaPad T5.avif'),(27,'223V5','Philips',85.00,10,'Berria','Pantaila',13,'img produktuak/Philips 223V5.webp'),(28,'Selphy','Canon',65.00,5,'Berria','Inprimagailua',NULL,'img produktuak/Canon Selphy.webp'),(29,'MacBook Air','Apple',650.00,4,'Birgaitua','Ordenagailua',NULL,'img produktuak/Apple MacBook Air.webp'),(30,'Redmi Note 10','Xiaomi',220.00,16,'Berria','Mugikorra',2,'img produktuak/Xiaomi Redmi Note 10.webp');
-/*!40000 ALTER TABLE `produktuak` ENABLE KEYS */;
+LOCK TABLES `produktu` WRITE;
+/*!40000 ALTER TABLE `produktu` DISABLE KEYS */;
+INSERT INTO `produktu` VALUES (1,'EliteBook 840','HP',450.00,15,'Birgaitua','Ordenagailua',NULL),(2,'Latitude 7390','Dell',400.00,12,'Birgaitua','Ordenagailua',6),(3,'Galaxy S10','Samsung',250.00,20,'Birgaitua','Mugikorra',16),(4,'iPhone 11','Apple',380.00,8,'Birgaitua','Mugikorra',2),(5,'iPad Air','Apple',420.00,10,'Berria','Tableta',24),(6,'LG 24MP59','LG',90.00,25,'Berria','Pantaila',NULL),(7,'Curved 27','Samsung',150.00,7,'Berria','Pantaila',NULL),(8,'LaserJet 1100','HP',75.00,5,'Birgaitua','Inprimagailua',NULL),(9,'ThinkPad X1','Lenovo',480.00,6,'Berria','Ordenagailua',27),(10,'Mi 10','Xiaomi',300.00,14,'Berria','Mugikorra',26),(11,'Tab S6','Samsung',350.00,9,'Berria','Tableta',8),(12,'UltraSharp','Dell',200.00,11,'Berria','Pantaila',NULL),(13,'Pixma','Canon',85.00,30,'Berria','Inprimagailua',NULL),(14,'OnePlus Nord','OnePlus',290.00,12,'Berria','Mugikorra',17),(15,'ZenBook','Asus',500.00,4,'Berria','Ordenagailua',NULL),(16,'GW2480','BenQ',110.00,8,'Berria','Pantaila',1),(17,'Pixel 5','Google',320.00,6,'Berria','Mugikorra',NULL),(18,'EcoTank','Epson',100.00,10,'Berria','Inprimagailua',5),(19,'Tab P11','Lenovo',250.00,15,'Berria','Tableta',NULL),(20,'ProBook 450','HP',430.00,7,'Birgaitua','Ordenagailua',9),(21,'iPhone XR','Apple',350.00,9,'Birgaitua','Mugikorra',5),(22,'UltraFine','LG',210.00,3,'Berria','Pantaila',NULL),(23,'HL-1210W','Brother',70.00,18,'Berria','Inprimagailua',NULL),(24,'Aspire 5','Acer',380.00,6,'Berria','Ordenagailua',NULL),(25,'Galaxy A52','Samsung',240.00,20,'Berria','Mugikorra',NULL),(26,'MediaPad T5','Huawei',200.00,12,'Birgaitua','Tableta',6),(27,'223V5','Philips',85.00,10,'Berria','Pantaila',13),(28,'Selphy','Canon',65.00,5,'Berria','Inprimagailua',NULL),(29,'MacBook Air','Apple',650.00,4,'Birgaitua','Ordenagailua',NULL),(30,'Redmi Note 10','Xiaomi',220.00,16,'Berria','Mugikorra',2);
+/*!40000 ALTER TABLE `produktu` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -292,4 +291,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-02-02  9:17:19
+-- Dump completed on 2026-02-03  8:06:54
