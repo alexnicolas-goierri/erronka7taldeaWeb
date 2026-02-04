@@ -4,6 +4,12 @@ include_once "konexioa.php";
 
 /* SASKIAN JARRI */
 if (isset($_POST['produktua_id'])) {
+    // Verificar si está logeado antes de añadir al carrito
+    if (!isset($_SESSION["user_id"])) {
+        header("Location: HASI SAIOA.php");
+        exit;
+    }
+    
     $id = (int)$_POST['produktua_id'];
 
     if (!isset($_SESSION['saskia'])) {
@@ -15,6 +21,10 @@ if (isset($_POST['produktua_id'])) {
     } else {
         $_SESSION['saskia'][$id] = 1;
     }
+    
+    // Redirigir al carrito después de añadir
+    header("Location: karritoa.php");
+    exit;
 }
 
 /* MOTA FILTROAK */
@@ -73,11 +83,6 @@ if (!empty($params)) {
 <script>
 $(document).ready(function(){
 
-    $(".erosi").click(function(){
-        let zenbakia = parseInt($("#saskia").text()) || 0;
-        $("#saskia").text(zenbakia + 1);
-    });
-
     $(".produktuak").hover(
         function(){ $(this).css("border","3px solid white"); },
         function(){ $(this).css("border","2px solid transparent"); }
@@ -133,10 +138,16 @@ if ($resultado && $resultado->num_rows > 0) {
         echo   '<img class="produktuak" src="'.$img.'" alt="'.$izena.'">';
         echo   '<p class="produktutextua">'.$izena.' - '.$prezioa.' €</p>';
         echo   '<div class="button">';
-        echo     '<form method="POST">';
-        echo       '<input type="hidden" name="produktua_id" value="'.$id.'">';
-        echo       '<button type="submit" class="erosi">Erosi</button>';
-        echo     '</form>';
+        
+        if (isset($_SESSION["user_id"])) {
+            echo     '<form method="POST">';
+            echo       '<input type="hidden" name="produktua_id" value="'.$id.'">';
+            echo       '<button type="submit" class="erosi">Erosi</button>';
+            echo     '</form>';
+        } else {
+            echo     '<a href="HASI SAIOA.php" class="erosi" style="text-decoration:none; display:inline-block; padding:10px 20px; background:#007bff; color:white; border-radius:5px;">Hasi saioa</a>';
+        }
+        
         echo   '</div>';
         echo '</div>';
     }
@@ -170,4 +181,3 @@ if (isset($stmt)) {
 
 </body>
 </html>
-
