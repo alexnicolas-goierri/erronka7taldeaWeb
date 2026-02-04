@@ -17,7 +17,7 @@
             </form>
                <a href="KATALOGOA.php">KATALOGOA</a>
             <a href="SARRERA.php">SARRERA</a>
-              <a href="HASI SAIOA.php">HASI SAIO</a>
+              <a href="HASI SAIOA.php">SAIOA HASI</a>
             <a href="IZENA EMAN.php">FORMULARIOA</a>
             <img src="img/Reino Unido.jpg"  class="Ingles"alt="English logo">
             <a href="karritoa.php"><img src="img/saskia.png" alt="" height="50%" width="50%" class="saskia"></a>

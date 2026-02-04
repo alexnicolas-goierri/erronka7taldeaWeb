@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($pasahitza === $user["pass"]) {
             $_SESSION["user_id"] = $user["id"];
 
-            header("Location: SARRERA.php");
+            header("Location: katalogoa.php");
             exit;
         } else {
             $mensaje = "Pasahitza okerra.";
