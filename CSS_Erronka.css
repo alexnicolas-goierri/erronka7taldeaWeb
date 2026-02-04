@@ -1,6 +1,4 @@
-/* =========================
-   RESET Y BASE
-========================= */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -18,9 +16,6 @@ body {
   padding-top: 120px; /* espacio para header fijo */
 }
 
-/* =========================
-   HEADER (CSS ORIGINAL)
-========================= */
 header {
   width: 100%;
   background-color: rgba(245, 245, 247, 0.8);
@@ -102,9 +97,6 @@ nav a:hover {
   padding: 1%;
 }
 
-/* =========================
-   SLIDER
-========================= */
 .slider {
   max-width: 12550px;
   margin: 30px auto;
@@ -118,9 +110,7 @@ nav a:hover {
  
 }
 
-/* =========================
-   FILTRO / BUSCADOR
-========================= */
+
 form {
   background-color: #f5f5f7;
   padding: 28px;
@@ -161,9 +151,6 @@ button:hover {
   background-color: #0077ed;
 }
 
-/* =========================
-   CATÁLOGO (GRID NUEVO)
-========================= */
 figure {
   max-width: 1200px;
   margin: auto;
@@ -174,9 +161,6 @@ figure {
   background-color: #f5f5f7;
 }
 
-/* =========================
-   TARJETA PRODUCTO
-========================= */
 .div1 {
   background: white;
   border-radius: 14px;
@@ -193,9 +177,7 @@ figure {
   transform: translateY(-5px);
 }
 
-/* =========================
-   IMAGEN PRODUCTO
-========================= */
+/*IMAGEN PRODUCTO*/
 .produktuak {
   width: 100%;
   height: 180px;
@@ -210,9 +192,7 @@ figure {
   transition: 0.3s ease;
 }
 
-/* =========================
-   TEXTO PRODUCTO
-========================= */
+
 figcaption {
   text-align: center;
   margin-top: 8px;
@@ -221,9 +201,7 @@ figcaption {
   min-height: 45px; /* evita descuadre al buscar */
 }
 
-/* =========================
-   BOTÓN
-========================= */
+
 .button {
   display: flex;
   justify-content: center;
@@ -236,9 +214,6 @@ figcaption {
   width: 100%;
 }
 
-/* =========================
-   FOOTER
-========================= */
 footer {
   background-color: #f5f5f7;
   color: #6e6e73;
