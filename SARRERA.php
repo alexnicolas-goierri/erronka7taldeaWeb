@@ -14,14 +14,14 @@
     </header>
     
   <main>
+        <div class="div1">
     <h2>Gure enpresa</h2>
     <p>
-      <strong>TechnoPlus</strong> enpresa <strong>ordenagailu eta mugikor erabiliak berriz saltzen</strong> eta
-      <strong>osagai elektronikoak</strong> eskaintzen espezializatuta dago. Gure helburua
-      bezeroei produktu fidagarriak prezio onean eskaintzea eta aholkularitza hurbila ematea da.
+                Ordenagailu eta mugikor erabiliak, eta osagai elektronikoak saltzen ditugu. 
+                Gure helburua produktu fidagarriak prezio onean eskaintzea eta bezeroei gertuko aholkularitza ematea da.
     </p>
 
-    <h2>Kokalekua</h2>
+            <h2 id="KOKAPENA">Kokalekua</h2>
     <p><strong>Helbidea:</strong> Kale Nagusia, Ordizia</p>
     <p><strong>Herria/Hiria:</strong> Ordizia (Gipuzkoa)</p>
     <p>Beheko mapan gure kokalekua ikus dezakezu Google Maps bidez:</p>
@@ -34,6 +34,7 @@
       allowfullscreen=""
       loading="lazy">
     </iframe>
+        </div>
   </main>
     <footer>
     <h3>ENPRESA KOLABORATIBOAK</h3>
@@ -49,20 +50,13 @@
         <img class="logo-empresa" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/960px-IBM_logo.svg.png" alt="IBM">
         <img class="logo-empresa" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Intel_logo_2023.svg/2560px-Intel_logo_2023.svg.png" alt="Intel">
     </div>
+
         <h3>SARE SOZIALAK</h3>
-        <a href="#INSTAGRAM"><img src="img/Instagram logo.png"height="60"width="60"alt="Instagram"/></a>
-        <a href="#YOUTUBE"><img src="img/YouTube logo.png" height="60" width="60" alt="YouTube"/></a>
-        <a href="#X"><img src="img/X logo.png" height="60" width="60" alt="X"/></a>
-
-        <div>
-            <h3>INFORMAZIO GEHIGARRIA</h3>
-            <p><a href="#KOKAPENA">KOKAPENA</a></p>
-            <p><a href="#KONTAKTUAK">KONTAKTUAK</a></p>
-            <p><a href="#ITZULKETA POLITIKA">ITZULKETA POLITIKA</a></p>
-            <p><a href="#SALMETA BALDINTZAK">SALMETA BALDINTZAK</a></p>
-            <p><a href="#LEGE OHARRA ETA COOKIEN POLITIKA">LEGE OHARRA ETA COOKIEN POLITIKA</a></p>
+        <div class="sarrera-grid">
+            <a href="#INSTAGRAM"><img class="logo-empresa" src="img/Instagram logo.png" alt="Instagram"/></a>
+            <a href="#YOUTUBE"><img class="logo-empresa" src="img/YouTube logo.png" alt="YouTube"/></a>
+            <a href="#X"><img class="logo-empresa" src="img/X logo.png" alt="X"/></a>
         </div>
-
 
     </footer>
 </body>
