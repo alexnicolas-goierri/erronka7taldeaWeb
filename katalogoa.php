@@ -117,7 +117,6 @@ $('.slider').slick({
     <img src="img/slider-argazkiak/4.webp">
 </div>
 
-<!-- FILTRO -->
 <form method="GET">
     <label>Mota</label>
     <select name="mota">

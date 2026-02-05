@@ -75,7 +75,6 @@ nav a:hover {
   margin-left: 3%;
 }
 
-/* SASKIA KONTADOREA */
 #saskia {
   position: absolute;
   top: 0;
@@ -102,7 +101,6 @@ nav a:hover {
 
 
 
-/* BILATZAILEA */
 form {
   background-color: #f5f5f7;
   padding: 28px;
@@ -300,6 +298,7 @@ button:hover {
 .sidebar.active {
   left: 0;
   }
+
 .sidebar a {
   display: block;
   color: white;
