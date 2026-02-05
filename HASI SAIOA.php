@@ -5,12 +5,15 @@ include_once "konexioa.php";
 
 $mensaje = "";
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["posta_elektronikoa"];
     $pasahitza = $_POST["pasahitza"];
 
-    $sql = "SELECT id, pass FROM erabiltzaile WHERE gmail = ?";
+    // Modificamos la consulta para obtener también el bezero_id
+    $sql = "SELECT e.id, e.pass, e.bezero_id, b.izena, b.abizena 
+            FROM erabiltzaile e 
+            LEFT JOIN bezero b ON e.bezero_id = b.id 
+            WHERE e.gmail = ?";
     $stmt = $conexion->prepare($sql);
 
     if (!$stmt) {
@@ -26,6 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($pasahitza === $user["pass"]) {
             $_SESSION["user_id"] = $user["id"];
+            $_SESSION["user_email"] = $email;
+            $_SESSION["user_nombre"] = $user["izena"] ?? "Usuario";
+            $_SESSION["user_apellido"] = $user["abizena"] ?? "";
 
             header("Location: SARRERA.php");
             exit;

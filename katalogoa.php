@@ -157,7 +157,7 @@ if ($resultado && $resultado->num_rows > 0) {
             echo       '<button type="submit" class="erosi">Erosi</button>';
             echo     '</form>';
         } else {
-            echo     '<a href="HASI SAIOA.php" class="erosi" style="text-decoration:none; display:inline-block; padding:10px 20px; background:#007bff; color:white; border-radius:5px;">Hasi saioa</a>';
+            echo     '<a href="HASI SAIOA.php" class="erosi" style="text-decoration:none; display:inline-block; padding:10px 20px; background:black; color:white; border-radius:5px;">Hasi saioa</a>';
         }
         
         echo   '</div>';

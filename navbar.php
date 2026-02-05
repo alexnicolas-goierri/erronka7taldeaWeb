@@ -1,4 +1,8 @@
-<? session_start(); ?>
+<?php 
+if (!isset($_SESSION)) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +21,20 @@
                 <input type="text" name="keywords" placeholder="Bilatu produktuak..." />
                 <button type="submit" name="search" value="1" >BILATU</button>
             </form>
-               <a href="KATALOGOA.php">KATALOGOA</a>
+            <a href="KATALOGOA.php">KATALOGOA</a>
             <a href="SARRERA.php">SARRERA</a>
-              <a href="HASI SAIOA.php">SAIOA HASI</a>
-            <a href="IZENA EMAN.php">LOG-IN</a>
+            
+            
+            <?php if (isset($_SESSION["user_id"])): ?>
+                <div class="user-info">
+                    <span>Kaixo, <?= htmlspecialchars($_SESSION["user_nombre"]) ?>!</span>
+                    <a href="itxi_saioa.php" class="logout-btn">Itxi saioa</a>
+                </div>
+            <?php else: ?>
+                <a href="HASI SAIOA.php">SAIOA HASI</a>
+                <a href="IZENA EMAN.php">LOG-IN</a>
+            <?php endif; ?>
+            
             <a href="karritoa.php"><img src="img/saskia.png" alt="" height="50%" width="50%" class="saskia"></a>
             <div class="zenbaki-saskia">
                 <span id="saskia">
