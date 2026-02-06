@@ -44,11 +44,11 @@ if (!isset($_SESSION)) {
         </div>
         </nav>
     <div class="sidebar" id="sidebar"> 
-        <p><a href="#KOKAPENA">KOKAPENA</a></p>
-        <p><a href="#KONTAKTUAK">KONTAKTUAK</a></p>
-        <p><a href="#ITZULKETA_POLITIKA">ITZULKETA POLITIKA</a></p>
-        <p><a href="#SALMETA_BALDINTZAK">SALMETA BALDINTZAK</a></p>
-        <p><a href="#LEGE_OHARRA_ETA_COOKIEN_POLITIKA">LEGE OHARRA ETA COOKIEN POLITIKA</a></p>
+        <p><a href="SARRERA.php">KOKAPENA</a></p>
+        <p><a href="kontaktua.php">KONTAKTUAK</a></p>
+        <p><a href="izen_politika.php">ITZULKETA POLITIKA</a></p>
+        <p><a href="salmenta_baldintzak.php">SALMETA BALDINTZAK</a></p>
+        <p><a href="lege_oharrak.php">LEGE OHARRA ETA COOKIEN POLITIKA</a></p>
     </div>
     
     <script>
