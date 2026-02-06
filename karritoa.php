@@ -2,7 +2,6 @@
 session_start();
 include_once "konexioa.php";
 
-// VERIFICAR LOGIN
 if (!isset($_SESSION["user_id"])) {
     header("Location: HASI SAIOA.php");
     exit;
@@ -10,7 +9,6 @@ if (!isset($_SESSION["user_id"])) {
 
 $mensaje_exito = "";
 
-/* PROCESAR COMPRA */
 if (isset($_POST['ordainketa'])) {
     
     if (!isset($_SESSION['saskia']) || empty($_SESSION['saskia'])) {
@@ -18,7 +16,6 @@ if (isset($_POST['ordainketa'])) {
         exit;
     }
     
-    // OBTENER EL bezero_id del usuario logeado
     $user_id = $_SESSION["user_id"];
     $sql_bezero = "SELECT bezero_id FROM erabiltzaile WHERE id = ?";
     $stmt_bez = $conexion->prepare($sql_bezero);
@@ -37,11 +34,49 @@ if (isset($_POST['ordainketa'])) {
         die("Errorea: Ez duzu bezero profila.");
     }
 
-    // COMENZAR TRANSACCIÓN
     $conexion->begin_transaction();
 
     try {
-        // 1. CREAR KARRITO
+        $ids = implode(",", array_keys($_SESSION['saskia']));
+        $sql_check_stock = "SELECT id, izena, stock FROM produktuak WHERE id IN ($ids)";
+        $resultado_stock = $conexion->query($sql_check_stock);
+        
+        $stock_errors = [];
+        while ($p = $resultado_stock->fetch_assoc()) {
+            $produktu_id = $p['id'];
+            $cantidad_pedida = $_SESSION['saskia'][$produktu_id];
+            
+            if ($p['stock'] < $cantidad_pedida) {
+                $stock_errors[] = "Ez dago nahikoa stock: {$p['izena']} (Eskuragarri: {$p['stock']}, Eskatuta: {$cantidad_pedida})";
+            }
+        }
+        
+        if (!empty($stock_errors)) {
+            $conexion->rollback();
+            $mensaje_error = implode("<br>", $stock_errors);
+            ?>
+            <!DOCTYPE html>
+            <html lang="eu">
+            <head>
+                <meta charset="UTF-8">
+                <title>Errorea</title>
+                <link rel="stylesheet" href="CSS_Erronka.css">
+            </head>
+            <body>
+                <header><?php include_once "navbar.php"; ?></header>
+                <main class="confirmacion-main">
+                    <h1>⚠️ Stock errorea</h1>
+                    <p><?= $mensaje_error ?></p>
+                    <div class="confirmacion-botones">
+                        <a href="karritoa.php" class="btn-katalogo">Atzera karritora</a>
+                    </div>
+                </main>
+            </body>
+            </html>
+            <?php
+            exit;
+        }
+        
         $sql_karrito = "INSERT INTO karrito (bezero_id, egoera) VALUES (?, 'erosita')";
         $stmt_karrito = $conexion->prepare($sql_karrito);
         $stmt_karrito->bind_param("i", $bezero_id);
@@ -49,14 +84,11 @@ if (isset($_POST['ordainketa'])) {
         
         $karrito_id = $conexion->insert_id;
         
-        // 2. OBTENER DATOS DE LOS PRODUCTOS
-        $ids = implode(",", array_keys($_SESSION['saskia']));
-        $sql_produktuak = "SELECT id, izena, prezioa FROM produktuak WHERE id IN ($ids)";
+        $sql_produktuak = "SELECT id, izena, prezioa, stock FROM produktuak WHERE id IN ($ids)";
         $resultado_compra = $conexion->query($sql_produktuak);
         
         $total_compra = 0;
         
-        // 3. INSERTAR CADA PRODUCTO EN karrito_produktuak
         while ($p = $resultado_compra->fetch_assoc()) {
             $produktu_id = $p['id'];
             $kopurua = $_SESSION['saskia'][$produktu_id];
@@ -68,16 +100,18 @@ if (isset($_POST['ordainketa'])) {
             $stmt_prod->bind_param("iiid", $karrito_id, $produktu_id, $kopurua, $prezioa);
             $stmt_prod->execute();
             
+            $sql_update_stock = "UPDATE produktuak SET stock = stock - ? WHERE id = ?";
+            $stmt_stock = $conexion->prepare($sql_update_stock);
+            $stmt_stock->bind_param("ii", $kopurua, $produktu_id);
+            $stmt_stock->execute();
+            
             $total_compra += ($prezioa * $kopurua);
         }
         
-        // 4. COMMIT
         $conexion->commit();
         
-        // 5. MENSAJE DE ÉXITO
-        $mensaje_exito = "Erosketa arrakastaz egin da! Guztira: {$total_compra}€";
+        $mensaje_exito = "✅ Erosketa arrakastaz egin da! Guztira: " . number_format($total_compra, 2) . "€";
         
-        // 6. LIMPIAR SASKIA
         unset($_SESSION['saskia']);
         
     } catch (Exception $e) {
@@ -86,7 +120,6 @@ if (isset($_POST['ordainketa'])) {
     }
 }
 
-/* PRODUKTUA KENDU */
 if (isset($_POST['kendu_id'])) {
     $id = (int)$_POST['kendu_id'];
     if (isset($_SESSION['saskia'][$id])) {
@@ -94,7 +127,6 @@ if (isset($_POST['kendu_id'])) {
     }
 }
 
-/* PRODUKTUA JARRI */
 if (isset($_POST['produktua_id'])) {
     $id = (int)$_POST['produktua_id'];
     if (!isset($_SESSION['saskia'])) $_SESSION['saskia'] = [];
@@ -106,7 +138,6 @@ if (isset($_POST['produktua_id'])) {
     }
 }
 
-// Si ya se procesó la compra, mostrar solo el mensaje
 if ($mensaje_exito) {
     ?>
     <!DOCTYPE html>
@@ -154,7 +185,6 @@ if ($mensaje_exito) {
     exit;
 }
 
-// Si el carrito está vacío
 if (!isset($_SESSION['saskia']) || empty($_SESSION['saskia'])) {
     ?>
     <!DOCTYPE html>
@@ -187,9 +217,8 @@ if (!isset($_SESSION['saskia']) || empty($_SESSION['saskia'])) {
     exit;
 }
 
-// Mostrar el carrito
 $ids = implode(",", array_keys($_SESSION['saskia']));
-$sql = "SELECT id, izena, prezioa, argazkia FROM produktuak WHERE id IN ($ids)";
+$sql = "SELECT id, izena, prezioa, argazkia, stock FROM produktuak WHERE id IN ($ids)";
 $resultado = $conexion->query($sql);
 
 $total = 0;
@@ -221,16 +250,27 @@ $total = 0;
             </tr>
         </thead>
         <tbody>
-            <?php while ($p = $resultado->fetch_assoc()): 
+            <?php 
+            $stock_warning = false;
+            while ($p = $resultado->fetch_assoc()): 
                 $id = $p['id'];
                 $kantitatea = $_SESSION['saskia'][$id];
                 $subtotal = $p['prezioa'] * $kantitatea;
                 $total += $subtotal;
+                
+                if ($p['stock'] < $kantitatea) {
+                    $stock_warning = true;
+                }
             ?>
             <tr>
                 <td><img src="<?= htmlspecialchars($p['argazkia']) ?>" class="karrito-img"></td>
                 <td><?= htmlspecialchars($p['izena']) ?></td>
-                <td><?= $kantitatea ?></td>
+                <td>
+                    <?= $kantitatea ?>
+                    <?php if ($p['stock'] < $kantitatea): ?>
+                        <br><span style="color: red; font-size: 12px;">⚠️ Stock: <?= $p['stock'] ?></span>
+                    <?php endif; ?>
+                </td>
                 <td><?= $p['prezioa'] ?> €</td>
                 <td><?= number_format($subtotal, 2) ?> €</td>
                 <td>
@@ -249,6 +289,10 @@ $total = 0;
             </tr>
         </tfoot>
     </table>
+
+    <?php if ($stock_warning): ?>
+        <p style="text-align: center; color: red; font-weight: bold;">⚠️ Produktu batzuek ez dute nahikoa stock</p>
+    <?php endif; ?>
 
     <form method="POST" class="karrito-form">
         <button type="submit" name="ordainketa" class="ordaindu-btn">Ordaindu</button>

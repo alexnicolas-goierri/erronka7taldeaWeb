@@ -2,9 +2,7 @@
 session_start();
 include_once "konexioa.php";
 
-/* SASKIAN JARRI */
 if (isset($_POST['produktua_id'])) {
-    // Verificar si está logeado antes de añadir al carrito
     if (!isset($_SESSION["user_id"])) {
         header("Location: HASI SAIOA.php");
         exit;
@@ -22,12 +20,10 @@ if (isset($_POST['produktua_id'])) {
         $_SESSION['saskia'][$id] = 1;
     }
     
-    // Redirigir al carrito después de añadir
     header("Location: karritoa.php");
     exit;
 }
 
-/* MOTA FILTROAK */
 $mota = $_GET['mota'] ?? '';
 $keywords = '';
 
@@ -35,8 +31,7 @@ if (isset($_GET['search'])) {
     $keywords = trim($_GET['keywords'] ?? '');
 }
 
-/* SQL KONTSULTA */
-$sql = "SELECT id, izena, prezioa, argazkia, mota FROM produktuak WHERE 1=1";
+$sql = "SELECT id, izena, prezioa, argazkia, mota, stock FROM produktuak WHERE 1=1";
 $params = [];
 $types = "";
 
@@ -79,9 +74,8 @@ if (!empty($params)) {
 <link rel="icon" type="image/png" href="SECONDS AGO LOGO.png">
 
 <link rel="stylesheet" href="img/slider-argazkiak/slick.css">
-    <link rel="stylesheet" href="img/slider-argazkiak/slick-theme.css">
+<link rel="stylesheet" href="img/slider-argazkiak/slick-theme.css">
  
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
@@ -130,7 +124,6 @@ $('.slider').slick({
     <button type="submit">Aplikatu</button>
 </form>
 
-<!-- PRODUKTUAK -->
 <figure>
 
 <?php
@@ -140,6 +133,7 @@ if ($resultado && $resultado->num_rows > 0) {
 
         $izena   = htmlspecialchars($producto['izena'], ENT_QUOTES, 'UTF-8');
         $prezioa = htmlspecialchars($producto['prezioa'], ENT_QUOTES, 'UTF-8');
+        $stock   = (int)$producto['stock'];
         $id      = (int)$producto['id'];
 
         $img = !empty($producto['argazkia'])
@@ -152,10 +146,14 @@ if ($resultado && $resultado->num_rows > 0) {
         echo   '<div class="button">';
         
         if (isset($_SESSION["user_id"])) {
-            echo     '<form method="POST">';
-            echo       '<input type="hidden" name="produktua_id" value="'.$id.'">';
-            echo       '<button type="submit" class="erosi">Erosi</button>';
-            echo     '</form>';
+            if ($stock > 0) {
+                echo     '<form method="POST">';
+                echo       '<input type="hidden" name="produktua_id" value="'.$id.'">';
+                echo       '<button type="submit" class="erosi">Erosi</button>';
+                echo     '</form>';
+            } else {
+                echo '<button disabled style="background: gray; cursor: not-allowed;">Agortuta</button>';
+            }
         } else {
             echo     '<a href="HASI SAIOA.php" class="erosi" style="text-decoration:none; display:inline-block; padding:10px 20px; background:black; color:white; border-radius:5px;">Hasi saioa</a>';
         }
