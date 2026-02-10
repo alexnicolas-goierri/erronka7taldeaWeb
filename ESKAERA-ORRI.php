@@ -108,33 +108,32 @@
     </footer>
     </body>
     <script>
-    //  ROLAK bilatu (radio botoiak: Bezeroa / Hornitzailea)
+   
     const rolAukerak = document.querySelectorAll('input[name="Aukera"]');
 
-    // Formulario guztiko input-ak hartu
-    // (text, email, tel, number, reset, submit)
+    
     const eremuGuztiak = document.querySelectorAll(
       'input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="reset"], input[type="submit"]'
     );
 
-    // Funtzioa: eremu guztiak desgaitzeko
+   
     function desgaituDenak() {
       eremuGuztiak.forEach(e => e.disabled = true);
     }
 
-    // Hasieran dena desgaituta (ezin da ezer idatzi)
+    
     desgaituDenak();
 
-    // Erabiltzaileak rola hautatzen duenean (radio bat aldatzean)
+    
     rolAukerak.forEach(aukera => {
       aukera.addEventListener('change', () => {
 
-        //  Lehenik, dena berriro desgaitu
+        
         desgaituDenak();
 
-        //  Aukeratutakoaren arabera aktibatu dagokion multzoa
+        
         if (aukera.value === 'Bezeroa') {
-          //  Bezeroa hautatzean: honako eremuak aktibatzen dira
+          
           document.getElementById('izena').disabled = false;
           document.getElementById('abizena').disabled = false;
           document.getElementById('posta_elektronikoa').disabled = false;
@@ -147,7 +146,7 @@
           document.querySelector('input[type="submit"]').disabled = false;
         } 
         else if (aukera.value === 'Hornitzailea') {
-          // Hornitzailea hautatzean: honako eremuak aktibatzen dira
+          
           document.getElementById('harremanetarako_pertsona').disabled = false;
           document.getElementById('enpresaren_izena').disabled = false;
           document.getElementById('posta_elektronikoa').disabled = false;

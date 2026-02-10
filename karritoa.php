@@ -77,6 +77,7 @@ if (isset($_POST['ordainketa'])) {
             exit;
         }
         
+        
         $sql_karrito = "INSERT INTO karrito (bezero_id, egoera) VALUES (?, 'erosita')";
         $stmt_karrito = $conexion->prepare($sql_karrito);
         $stmt_karrito->bind_param("i", $bezero_id);
@@ -84,21 +85,25 @@ if (isset($_POST['ordainketa'])) {
         
         $karrito_id = $conexion->insert_id;
         
+        
         $sql_produktuak = "SELECT id, izena, prezioa, stock FROM produktuak WHERE id IN ($ids)";
         $resultado_compra = $conexion->query($sql_produktuak);
         
         $total_compra = 0;
+        
         
         while ($p = $resultado_compra->fetch_assoc()) {
             $produktu_id = $p['id'];
             $kopurua = $_SESSION['saskia'][$produktu_id];
             $prezioa = $p['prezioa'];
             
+            
             $sql_insert = "INSERT INTO karrito_produktuak (karrito_id, produktu_id, kopurua, prezioa_unitarioa) 
                            VALUES (?, ?, ?, ?)";
             $stmt_prod = $conexion->prepare($sql_insert);
             $stmt_prod->bind_param("iiid", $karrito_id, $produktu_id, $kopurua, $prezioa);
             $stmt_prod->execute();
+            
             
             $sql_update_stock = "UPDATE produktuak SET stock = stock - ? WHERE id = ?";
             $stmt_stock = $conexion->prepare($sql_update_stock);
@@ -108,10 +113,35 @@ if (isset($_POST['ordainketa'])) {
             $total_compra += ($prezioa * $kopurua);
         }
         
+        
+        $sql_faktura = "INSERT INTO faktura (bezero_id, guztira) VALUES (?, ?)";
+        $stmt_faktura = $conexion->prepare($sql_faktura);
+        $stmt_faktura->bind_param("id", $bezero_id, $total_compra);
+        $stmt_faktura->execute();
+        
+        $faktura_id = $conexion->insert_id;
+        
+       
+        $resultado_compra->data_seek(0);
+        
+        while ($p = $resultado_compra->fetch_assoc()) {
+            $produktu_id = $p['id'];
+            $kopurua = $_SESSION['saskia'][$produktu_id];
+            $prezioa = $p['prezioa'];
+            
+            $sql_faktura_lerroa = "INSERT INTO faktura_lerroak (faktura_id, produktu_id, kopurua, prezioa_unitarioa) 
+                                   VALUES (?, ?, ?, ?)";
+            $stmt_faktura_lerroa = $conexion->prepare($sql_faktura_lerroa);
+            $stmt_faktura_lerroa->bind_param("iiid", $faktura_id, $produktu_id, $kopurua, $prezioa);
+            $stmt_faktura_lerroa->execute();
+        }
+        
+        
         $conexion->commit();
         
-        $mensaje_exito = "✅ Erosketa arrakastaz egin da! Guztira: " . number_format($total_compra, 2) . "€";
+        $mensaje_exito = " Erosketa arrakastaz egin da! Faktura zenbakia: #" . $faktura_id . " | Guztira: " . number_format($total_compra, 2) . "€";
         
+         
         unset($_SESSION['saskia']);
         
     } catch (Exception $e) {
@@ -156,7 +186,7 @@ if ($mensaje_exito) {
             <h1>Eskerrik asko!</h1>
             <h2><?= $mensaje_exito ?></h2>
             
-            <p>Zure erosketa arrakastaz gorde da.</p>
+            <p>Zure erosketa arrakastaz gorde da eta faktura sortu da.</p>
             
             <div class="confirmacion-botones">
                 <a href="katalogoa.php" class="btn-katalogo">Katalogora itzuli</a>
@@ -199,7 +229,7 @@ if (!isset($_SESSION['saskia']) || empty($_SESSION['saskia'])) {
             <?php include_once "navbar.php"; ?>
         </header>
         
-        <h1 class="karrito-hutsik">Karritoa hutsik dago</h1>
+        <h1 class="karrito-hutsik">🛒 Karritoa hutsik dago</h1>
         <p class="karrito-link"><a href="katalogoa.php">Katalogora itzuli</a></p>
         
         <footer>
@@ -236,7 +266,7 @@ $total = 0;
         <?php include_once "navbar.php"; ?>
     </header>
     
-    <h1 class="karrito-titulo">Karritoa</h1>
+    <h1 class="karrito-titulo">🛒 Karritoa (Egoera: Aktiboa)</h1>
 
     <table border="1" class="karrito-tabla">
         <thead>
@@ -291,14 +321,14 @@ $total = 0;
     </table>
 
     <?php if ($stock_warning): ?>
-        <p style="text-align: center; color: red; font-weight: bold;">⚠️ Produktu batzuek ez dute nahikoa stock</p>
+        <p style="text-align: center; color: red; font-weight: bold;"> Produktu batzuek ez dute nahikoa stock</p>
     <?php endif; ?>
 
     <form method="POST" class="karrito-form">
-        <button type="submit" name="ordainketa" class="ordaindu-btn">Ordaindu</button>
+        <button type="submit" name="ordainketa" class="ordaindu-btn"> Ordaindu eta faktura sortu</button>
     </form>
 
-    <p class="karrito-link"><a href="katalogoa.php">Katalogora itzuli</a></p>
+    <p class="karrito-link"><a href="katalogoa.php">← Katalogora itzuli</a></p>
     
     <footer>
         <h3>ENPRESA KOLABORATIBOAK</h3>
