@@ -2,6 +2,7 @@
 session_start();
 include_once "konexioa.php";
 
+ // Erabiltzailea login egin gabe badago saioa hasi
 if (isset($_POST['produktua_id'])) {
     if (!isset($_SESSION["user_id"])) {
         header("Location: HASI SAIOA.php");
@@ -10,19 +11,24 @@ if (isset($_POST['produktua_id'])) {
     
     $id = (int)$_POST['produktua_id'];
 
+ // Saskia existitzen ez bada, sortu
     if (!isset($_SESSION['saskia'])) {
         $_SESSION['saskia'] = [];
     }
 
+// Produktua saskira gehitu edo kantitatea handitu
     if (isset($_SESSION['saskia'][$id])) {
         $_SESSION['saskia'][$id]++;
     } else {
         $_SESSION['saskia'][$id] = 1;
     }
     
-    header("Location: karritoa.php");
+    // Saskira birbideratu
+
+    header("Location: karritoa.php"); 
     exit;
 }
+
 
 $mota = $_GET['mota'] ?? '';
 $keywords = '';
@@ -35,12 +41,14 @@ $sql = "SELECT id, izena, prezioa, argazkia, mota, stock FROM produktuak WHERE 1
 $params = [];
 $types = "";
 
+// Bilaketa filtroa (izena)
 if ($keywords !== '') {
     $sql .= " AND izena LIKE ?";
     $params[] = "%$keywords%";
     $types .= "s";
 }
 
+// Mota filtroa
 if ($mota !== '') {
     $sql .= " AND mota = ?";
     $params[] = $mota;
@@ -145,6 +153,7 @@ if ($resultado && $resultado->num_rows > 0) {
         echo   '<p class="produktutextua">'.$izena.' - '.$prezioa.' €</p>';
         echo   '<div class="button">';
         
+        // ez badago logeatuta
         if (isset($_SESSION["user_id"])) {
             if ($stock > 0) {
                 echo     '<form method="POST">';

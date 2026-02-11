@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// Destruir todas las variables de sesión
+// Saioko aldagai guztiak suntsitu
 $_SESSION = array();
 
-// Destruir la sesión
+// Saioa suntsitu
 session_destroy();
 
-// Redirigir a la página principal
+// Orrialde nagusira birbideratu
 header("Location: SARRERA.php");
 exit;
 ?>
