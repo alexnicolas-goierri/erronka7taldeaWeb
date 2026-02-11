@@ -65,7 +65,7 @@ if (isset($_POST['ordainketa'])) {
             <body>
                 <header><?php include_once "navbar.php"; ?></header>
                 <main class="confirmacion-main">
-                    <h1>⚠️ Stock errorea</h1>
+                    <h1>Stock errorea</h1>
                     <p><?= $mensaje_error ?></p>
                     <div class="confirmacion-botones">
                         <a href="karritoa.php" class="btn-katalogo">Atzera karritora</a>

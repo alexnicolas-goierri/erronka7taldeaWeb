@@ -5,11 +5,11 @@ include_once "konexioa.php";
 $mensaje = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $aukera = $_POST["Aukera"]; // Bezeroa o Hornitzailea
-    $email = $_POST["posta_elektronikoa"];
-    $pasahitza = $_POST["pasahitza"];
+    $aukera = $_POST["Aukera"] ?? ""; // Bezeroa o Hornitzailea
+    $email = $_POST["posta_elektronikoa"] ?? "";
+    $pasahitza = $_POST["pasahitza"] ?? "";
     
-    // Validar que el email no exista ya en erabiltzaile
+    // ERABILTZAILE TAULAN gmail ez dela errepikatzen
     $check_sql = "SELECT id FROM erabiltzaile WHERE gmail = ?";
     $check_stmt = $conexion->prepare($check_sql);
     $check_stmt->bind_param("s", $email);
@@ -24,28 +24,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         try {
             if ($aukera === "Bezeroa") {
-                $izena = $_POST["izena"];
-                $abizena = $_POST["abizena"];
+                $izena = $_POST["izena"] ?? "";
+                $abizena = $_POST["abizena"] ?? "";
+                $nan = $_POST["nan"] ?? "";
+                $telefono = $_POST["telefono"] ?? "";
+                $helbide = $_POST["helbide"] ?? "";
                 
-                // 1. Insertar en tabla bezero
-                $sql_bezero = "INSERT INTO bezero (izena, abizena, gmail, pasahitza, NAN) VALUES (?, ?, ?, ?, 'PENDIENTE')";
+                // 1. BEZERO TAULAN INSERT BAT EGIN
+                $sql_bezero = "INSERT INTO bezero (izena, abizena, gmail, pasahitza, NAN, Telefono, Helbide) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 $stmt_bezero = $conexion->prepare($sql_bezero);
-                $stmt_bezero->bind_param("ssss", $izena, $abizena, $email, $pasahitza);
+                $stmt_bezero->bind_param("sssssss", $izena, $abizena, $email, $pasahitza, $nan, $telefono, $helbide);
                 $stmt_bezero->execute();
                 
                 $bezero_id = $conexion->insert_id;
                 
-                // 2. Insertar en tabla erabiltzaile (rol_id = 5 es Bezeroa según tu tabla rolak)
+                // 2. ERABILTZAILE TAULAN ROLA DEFEKTUZ DEFINITU BEZERO ROLA 5
                 $sql_erab = "INSERT INTO erabiltzaile (gmail, pass, bezero_id, rol_id) VALUES (?, ?, ?, 5)";
                 $stmt_erab = $conexion->prepare($sql_erab);
                 $stmt_erab->bind_param("ssi", $email, $pasahitza, $bezero_id);
                 $stmt_erab->execute();
                 
             } else if ($aukera === "Hornitzailea") {
-                $enpresa = $_POST["enpresaren_izena"];
-                $telefonoa = $_POST["telefonoa"];
+                $enpresa = $_POST["enpresaren_izena"] ?? "";
+                $telefonoa = $_POST["telefonoa"] ?? "";
                 
-                // 1. Insertar en tabla hornitzaile
+                // 1. HORNITZAILE TAULAN INSERT BAT EGIN
                 $sql_horn = "INSERT INTO hornitzaile (enpreza_izena, telefono, gmail) VALUES (?, ?, ?)";
                 $stmt_horn = $conexion->prepare($sql_horn);
                 $stmt_horn->bind_param("sss", $enpresa, $telefonoa, $email);
@@ -53,8 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 $hornitzaile_id = $conexion->insert_id;
                 
-                // 2. Insertar en tabla erabiltzaile (necesitas definir qué rol_id es para hornitzaile)
-                // Por ahora usaré NULL, pero deberías tener un rol específico
+               // ERABILTZAILE TAULAN ROLA DEFEKTUZ DEFINITU HORNITZAILE ROLA 
                 $sql_erab = "INSERT INTO erabiltzaile (gmail, pass, hornitzaile_id, rol_id) VALUES (?, ?, ?, 1)";
                 $stmt_erab = $conexion->prepare($sql_erab);
                 $stmt_erab->bind_param("ssi", $email, $pasahitza, $hornitzaile_id);
@@ -64,8 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conexion->commit();
             $mensaje = "Erabiltzailea arrakastaz sortu da!";
             
-            // Opcional: redirigir al login después de 2 segundos
-            // header("refresh:2;url=login.php");
+           
             
         } catch (Exception $e) {
             $conexion->rollback();
@@ -100,6 +101,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <input type="text" name="izena" id="izena" placeholder="Izena">
 <input type="text" name="abizena" id="abizena" placeholder="Abizena">
+<input type="text" name="nan" id="nan" placeholder="NAN">
+<input type="text" name="telefono" id="telefono" placeholder="Telefonoa">
+<input type="text" name="helbide" id="helbide" placeholder="Helbidea">
 
 <input type="text" name="enpresaren_izena" id="enpresaren_izena" placeholder="Empresa">
 
@@ -161,6 +165,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (aukera.value === 'Bezeroa') {
           document.getElementById('izena').disabled = false;
           document.getElementById('abizena').disabled = false;
+          document.getElementById('nan').disabled = false;
+          document.getElementById('telefono').disabled = false;
+          document.getElementById('helbide').disabled = false;
           document.getElementById('posta_elektronikoa').disabled = false;
           document.getElementById('pasahitza').disabled = false;
         } 
